@@ -23,6 +23,26 @@ def editar_contato(contatos, index_contato, novo_nome, novo_telefone, novo_email
     else:
         print("Indice de tarefa inválido")
 
+def favoritar_contato(contatos, index_contato):
+    contatos[index_contato - 1]["favorito"] = True
+    print(f"Contato {index_contato} marcado como favorito")
+    return
+
+def ver_lista_favoritos(contatos, contatos_favoritos):
+    print("\nContatos Favoritos:")
+    contatos_favoritos.clear()
+    for contato in contatos:
+        if contato["favorito"]:
+            contatos_favoritos.append(contato)
+    ver_lista_contato(contatos_favoritos)
+    return
+
+def apagar_contato(contatos, index):
+    if 0 < index <= len(contatos):
+        removido = contatos.pop(index - 1)
+        print(f"Contato '{removido['nome']}' removido com sucesso.")
+    else:
+        print("Índice inválido.")
 
 contatos = []
 contatos_favoritos = []
@@ -52,5 +72,15 @@ while True:
         novo_telefone = str(input("Digite o novo telefone do contato: "))
         novo_email = str(input("Digite o novo email do contato: "))
         editar_contato(contatos, index_contato, novo_nome, novo_telefone, novo_email)
+    elif escolha == 4:
+        ver_lista_contato(contatos)
+        index = int(input("Digite o número do contato que deseja favorita: "))
+        favoritar_contato(contatos, index)
+    elif escolha == 5:
+        ver_lista_favoritos(contatos, contatos_favoritos)
+    elif escolha == 6:
+        ver_lista_contato(contatos)
+        index = int(input("Digite o número do contato que deseja apagar: "))
+        apagar_contato(contatos, index)
     elif escolha == 7:
         break
